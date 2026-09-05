@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samay Smart | Stage Timer & Stopwatch</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="dashboard" id="dashboard">
+        
+        <header class="top-nav">
+            <div class="top-nav-left">
+                <div class="brand">
+                    <span class="brand-text">Samay<span>Smart</span></span>
+                </div>
+            </div>
+            <div class="top-nav-center">
+                <span class="top-tagline">"An website built by KHUSH AGGARWAL for shitheads who cant keep track of time"</span>
+            </div>
+            <div class="top-nav-right">
+                <nav class="nav">
+                    <button class="nav-btn active" data-target="panel-stopwatch">⏱ Stopwatch</button>
+                    <button class="nav-btn" data-target="panel-timer">⏳ Stage Timer</button>
+                    <button class="nav-btn" data-target="panel-sync">🔗 Synced Room</button>
+                </nav>
+            </div>
+        </header>
+
+        <main class="content">
+            
+            <section id="panel-stopwatch" class="panel active">
+                <h2 class="panel-title">Precision Stopwatch</h2>
+                <div class="glass-card timer-card">
+                    <div id="sw-display" class="time-display small">00:00:00<span class="ms-small">.00</span></div>
+                    <div class="controls-row">
+                        <button id="sw-toggle" class="btn btn-primary ripple">
+                            <span class="btn-content">Start</span>
+                        </button>
+                        <button id="sw-reset" class="btn btn-danger ripple">
+                            <span class="btn-content">Reset</span>
+                        </button>
+                    </div>
+                    <button id="sw-launch" class="btn btn-outline full-width">Launch Big Screen ↗</button>
+                </div>
+            </section>
+
+            <section id="panel-timer" class="panel">
+                <h2 class="panel-title">Configure Stage Timer</h2>
+                <div class="glass-card setup-card">
+                    <div class="input-group">
+                        <label>Timer Title</label>
+                        <input type="text" id="t-title" value="Keynote" placeholder="Enter title...">
+                    </div>
+                    <div class="time-inputs-grid">
+                        <div class="input-group"><label>Hrs</label><input type="number" id="t-hours" value="0" min="0"></div>
+                        <div class="input-group"><label>Mins</label><input type="number" id="t-mins" value="10" min="0"></div>
+                        <div class="input-group"><label>Secs</label><input type="number" id="t-secs" value="0" min="0"></div>
+                    </div>
+                    <div class="input-group">
+                        <label>Count Mode</label>
+                        <select id="t-mode">
+                            <option value="down">Countdown</option>
+                            <option value="up">Count Up</option>
+                        </select>
+                    </div>
+                    <button id="t-launch" class="btn btn-primary full-width ripple">Launch Stage Screen ↗</button>
+                </div>
+            </section>
+
+            <!-- Sync Panel -->
+            <section id="panel-sync" class="panel">
+                <h2 class="panel-title">Create Synced Room</h2>
+                <div class="glass-card setup-card">
+                    <p class="section-desc">Select the tool you want to broadcast across multiple screens seamlessly.</p>
+                    
+                    <div class="sync-type-row">
+                        <button class="btn btn-outline sync-type-btn active" data-type="stopwatch">Stopwatch</button>
+                        <button class="btn btn-outline sync-type-btn" data-type="timer">Timer</button>
+                    </div>
+
+                    <button id="sync-create" class="btn btn-primary full-width ripple mt-3">Create Room & Copy Link</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Stopwatch Overlay -->
+    <div id="sw-overlay" class="stage-overlay hidden">
+        <div class="stage-header">
+            <div class="stage-brand">SamaySmart</div>
+            <h1 class="stage-title-text">Stopwatch</h1>
+            <button id="sw-close-stage" class="btn btn-close">Close ✕</button>
+        </div>
+        <div class="stage-center">
+            <div id="sw-stage-time" class="massive-time">00:00:00<span class="ms-small">.00</span></div>
+        </div>
+        <div class="stage-footer">
+            <div class="glass-controls">
+                <button id="sw-stage-toggle" class="btn btn-primary ripple">Start</button>
+                <button id="sw-stage-reset" class="btn btn-danger ripple">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timer Overlay -->
+    <div id="stage-overlay" class="stage-overlay hidden">
+        <div class="stage-header">
+            <div class="stage-brand">Samay Smart</div>
+            <h1 id="stage-title" class="stage-title-text">Keynote</h1>
+            <button id="stage-close" class="btn btn-close">Close ✕</button>
+        </div>
+        <div class="stage-center">
+            <div id="stage-time" class="massive-time dynamic-time">
+                <span id="t-unit-hours" class="time-part hidden">00:</span>
+                <span id="t-unit-mins" class="time-part hidden">10:</span>
+                <span id="t-unit-secs" class="time-part">00</span>
+            </div>
+        </div>
+        <div class="stage-footer">
+            <div class="glass-controls">
+                <button id="stage-toggle" class="btn btn-primary ripple">Start</button>
+                <button id="stage-reset" class="btn btn-danger ripple">Reset</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="celebration-overlay" class="celebration-overlay hidden">
+        <div class="celebration-text">TIME'S UP! 🎉</div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
